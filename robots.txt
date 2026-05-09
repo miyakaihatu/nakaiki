@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://miyakaihatu.github.io/nakaiki/sitemap.xml
