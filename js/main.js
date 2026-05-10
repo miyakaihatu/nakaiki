@@ -25,6 +25,24 @@ if (header && navToggle && globalNav) {
 
 const noteLatest = document.querySelector('#note-latest');
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function safeUrl(value, fallback) {
+  try {
+    const url = new URL(value || fallback, window.location.href);
+    return url.protocol === 'http:' || url.protocol === 'https:' ? url.href : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 function formatDate(value) {
   if (!value) return '';
   const date = new Date(value);
@@ -55,12 +73,12 @@ function renderNoteArticles(items) {
   }
 
   noteLatest.innerHTML = articles.map((item) => {
-    const title = textOrFallback(item.title, 'note記事');
-    const description = textOrFallback(item.description, '長文で整理した記事です。');
-    const link = textOrFallback(item.link, 'https://note.com/miyaaromassage');
-    const pubDate = formatDate(item.pubDate);
-    const image = textOrFallback(item.image, '');
-    const imageMarkup = image ? `<img src="${image}" alt="" loading="lazy">` : '';
+    const title = escapeHtml(textOrFallback(item.title, 'note記事'));
+    const description = escapeHtml(textOrFallback(item.description, '長文で整理した記事です。'));
+    const link = escapeHtml(safeUrl(item.link, 'https://note.com/miyaaromassage'));
+    const pubDate = escapeHtml(formatDate(item.pubDate));
+    const image = safeUrl(item.image, '');
+    const imageMarkup = image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : '';
 
     return `<article class="note-card">${imageMarkup}<div class="note-card-body">${pubDate ? `<p class="note-date">${pubDate}</p>` : ''}<h3>${title}</h3><p>${description}</p><a class="card-link" href="${link}" target="_blank" rel="noopener noreferrer">noteで読む</a></div></article>`;
   }).join('');
