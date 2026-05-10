@@ -35,8 +35,11 @@ function escapeHtml(value) {
 }
 
 function safeUrl(value, fallback) {
+  const candidate = typeof value === 'string' && value.trim() ? value.trim() : fallback;
+  if (!candidate) return '';
+
   try {
-    const url = new URL(value || fallback, window.location.href);
+    const url = new URL(candidate, window.location.href);
     return url.protocol === 'http:' || url.protocol === 'https:' ? url.href : fallback;
   } catch {
     return fallback;
