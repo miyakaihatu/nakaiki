@@ -30,6 +30,16 @@ https://miyakaihatu.github.io/nakaiki/sitemap.xml
 
 `articles.html` の `.article-card` をコピーして、タイトル、説明、タグ、リンク先を差し替えます。説明文は100文字前後にすると、スマホでも読みやすくなります。
 
+## note最新記事の自動更新
+
+トップページの「note最新記事」は `data/note.json` を読み込んで表示します。`data/note.json` は `.github/workflows/update-note-rss.yml` のGitHub Actionsが1日1回更新します。GitHubのActions画面から `Update note RSS` を選ぶと、手動実行もできます。
+
+noteユーザー名を変える場合は、`.github/workflows/update-note-rss.yml` の `NOTE_USER: miyaaromassage` を新しいユーザー名に差し替えてください。RSS URLを直接指定したい場合は、`NOTE_RSS_URL` に `https://note.com/あなたのnoteユーザー名/rss` の形で設定できます。
+
+`scripts/fetch-note-rss.js` はRSSから `title`、`link`、`pubDate`、`description`、画像がある場合は `image` を取得し、最大5件を保存します。トップページではそのうち最大3件だけを静かに表示します。
+
+RSS取得に失敗した場合でも、公開中のページ自体は崩れません。既存の `data/note.json` が残っていればその内容が表示され、読み込みに失敗した時は控えめな案内文を表示します。
+
 ## 画像やリンクの差し替え方法
 
 このサイトは画像なしでも成立するデザインです。画像を追加する場合は `images` フォルダを作り、HTMLに `img` タグを追加してください。画像には必ず内容が伝わる `alt` を入れてください。
