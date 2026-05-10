@@ -1,0 +1,32 @@
+name: Update note RSS
+
+on:
+  schedule:
+    - cron: '15 19 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-note-rss:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch note RSS
+        env:
+          NOTE_USER: miyaaromassage
+        run: node scripts/fetch-note-rss.js
+
+      - name: Commit note data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update note RSS data
+          file_pattern: data/note.json
