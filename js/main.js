@@ -2,6 +2,38 @@ const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const globalNav = document.querySelector('#global-nav');
 
+const socialIconMarkup = '<a class="social-icon" href="#" target="_blank" rel="noopener noreferrer nofollow" aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="7.5" r="1.2" fill="currentColor"/></svg></a><a class="social-icon" href="#" target="_blank" rel="noopener noreferrer nofollow" aria-label="Threads"><span aria-hidden="true">T</span></a><a class="social-icon" href="#" target="_blank" rel="noopener noreferrer nofollow" aria-label="note"><span aria-hidden="true">n</span></a><a class="social-icon" href="#" target="_blank" rel="noopener noreferrer nofollow" aria-label="X"><span aria-hidden="true">X</span></a>';
+
+function injectSocialIconStyles() {
+  if (document.querySelector('#social-icon-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'social-icon-styles';
+  style.textContent = '.social-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.social-icon{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.86);color:var(--accent);font-size:15px;font-weight:700;line-height:1;text-decoration:none}.social-icon:hover{background:var(--soft);border-color:rgba(111,159,155,.55)}.social-icon svg{display:block}.header-social{flex:0 0 auto}.footer-social{justify-content:flex-end}@media(max-width:960px){.header-inner{gap:12px}.global-nav{gap:4px}.global-nav a{padding:9px 10px}.header-social{gap:6px}.social-icon{width:36px;height:36px}}@media(max-width:820px){.header-social{order:2;margin-left:auto;margin-right:4px}.nav-toggle{order:3}.footer-social{justify-content:flex-start}}';
+  document.head.append(style);
+}
+
+function createSocialLinks(locationClass) {
+  const nav = document.createElement('nav');
+  nav.className = `social-links ${locationClass}`;
+  nav.setAttribute('aria-label', 'SNSリンク');
+  nav.innerHTML = socialIconMarkup;
+  return nav;
+}
+
+function setupSocialIconLinks() {
+  injectSocialIconStyles();
+
+  if (globalNav && !document.querySelector('.header-social')) {
+    globalNav.insertAdjacentElement('afterend', createSocialLinks('header-social'));
+  }
+
+  document.querySelectorAll('.footer-links').forEach((footerLinks) => {
+    footerLinks.replaceWith(createSocialLinks('footer-social'));
+  });
+}
+
+setupSocialIconLinks();
+
 if (header && navToggle && globalNav) {
   navToggle.addEventListener('click', () => {
     const isOpen = header.classList.toggle('nav-open');
