@@ -4,6 +4,21 @@ const globalNav = document.querySelector('#global-nav');
 
 const socialIconMarkup = '<a class="social-icon" href="https://www.instagram.com/nakaikioilmassage/" target="_blank" rel="noopener noreferrer nofollow" aria-label="Instagram"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16.5" cy="7.5" r="1.2" fill="currentColor"/></svg></a><a class="social-icon" href="https://www.threads.com/@nakaikikaihatu" target="_blank" rel="noopener noreferrer nofollow" aria-label="Threads"><span aria-hidden="true">T</span></a><a class="social-icon" href="https://note.com/miyaaromassage" target="_blank" rel="noopener noreferrer nofollow" aria-label="note"><span aria-hidden="true">n</span></a><a class="social-icon" href="https://x.com/nakaiki_7" target="_blank" rel="noopener noreferrer nofollow" aria-label="X"><span aria-hidden="true">X</span></a>';
 
+function setupNavLabels() {
+  if (!globalNav) return;
+  const labels = {
+    'guide.html': 'はじめに',
+    'about.html': 'プロフィール'
+  };
+
+  globalNav.querySelectorAll('a').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (href && labels[href]) {
+      link.textContent = labels[href];
+    }
+  });
+}
+
 function injectSocialIconStyles() {
   if (document.querySelector('#social-icon-styles')) return;
   const style = document.createElement('style');
@@ -32,6 +47,7 @@ function setupSocialIconLinks() {
   });
 }
 
+setupNavLabels();
 setupSocialIconLinks();
 
 if (header && navToggle && globalNav) {
