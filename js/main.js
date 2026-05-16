@@ -13,9 +13,29 @@ function setupNavLabels() {
 
   globalNav.querySelectorAll('a').forEach((link) => {
     const href = link.getAttribute('href');
+    if (href === 'emergency.html') {
+      link.remove();
+      return;
+    }
     if (href && labels[href]) {
       link.textContent = labels[href];
     }
+  });
+}
+
+function removeEmergencyEntryPoints() {
+  document.querySelectorAll('a[href="emergency.html"]').forEach((link) => {
+    const panel = link.closest('.quiet-panel');
+    const card = link.closest('.card');
+    if (panel) {
+      panel.remove();
+      return;
+    }
+    if (card && card.textContent.includes('現在地')) {
+      card.remove();
+      return;
+    }
+    link.remove();
   });
 }
 
@@ -48,6 +68,7 @@ function setupSocialIconLinks() {
 }
 
 setupNavLabels();
+removeEmergencyEntryPoints();
 setupSocialIconLinks();
 
 if (header && navToggle && globalNav) {
