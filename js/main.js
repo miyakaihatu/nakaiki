@@ -47,6 +47,14 @@ function injectSocialIconStyles() {
   document.head.append(style);
 }
 
+function injectGentlePolish() {
+  if (document.querySelector('#gentle-polish-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'gentle-polish-styles';
+  style.textContent = ':root{--bg:#fdfcf9;--surface:#fffefd;--soft:#f1f7f3;--line:#e4e9e5;--accent:#4f7f78;--blue:#8caabe;--text:#2b3332;--muted:#667270;--radius:12px}.site-header{background:rgba(253,252,249,.94)}.hero{background:linear-gradient(180deg,rgba(241,247,243,.74),rgba(253,252,249,0))}.quiet-panel,.card,.theme-card,.article-card,.link-card,.post-card{border-radius:14px;box-shadow:0 16px 42px rgba(72,91,87,.07)}.button{border-radius:999px}.eyebrow{letter-spacing:.14em}.hero-copy h1,.section-heading h1,.narrow h1{font-weight:650}.lead,.prose{line-height:1.9}.link-card em{background:#edf7f2}.tag-list a,.tag-row span{background:rgba(255,255,255,.82)}@media(max-width:520px){.hero-copy h1,.section-heading h1,.narrow h1{font-size:32px}.section-heading{margin-bottom:24px}}';
+  document.head.append(style);
+}
+
 function createSocialLinks(locationClass) {
   const nav = document.createElement('nav');
   nav.className = `social-links ${locationClass}`;
@@ -69,6 +77,7 @@ function setupSocialIconLinks() {
 
 setupNavLabels();
 removeEmergencyEntryPoints();
+injectGentlePolish();
 setupSocialIconLinks();
 
 if (header && navToggle && globalNav) {
