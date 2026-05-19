@@ -7,10 +7,10 @@
 .note-card {
   min-height: 100%;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-soft);
 }
 
 .note-card img {
@@ -18,7 +18,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  background: var(--soft);
+  background: var(--accent-soft);
 }
 
 .note-card-body {
@@ -35,7 +35,7 @@
 
 .note-date {
   margin-bottom: 8px;
-  color: var(--blue);
+  color: var(--accent-deep);
   font-size: 13px;
   font-weight: 700;
 }
@@ -44,7 +44,7 @@
   grid-column: 1 / -1;
   margin: 0;
   padding: 22px;
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--muted);
