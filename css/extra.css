@@ -1,0 +1,67 @@
+.breath-visual {
+  position: relative;
+  height: 128px;
+  margin-top: 28px;
+  border: 1px solid rgba(240, 221, 215, .84);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 38%, rgba(214, 143, 163, .20), transparent 9rem),
+    radial-gradient(circle at 72% 58%, rgba(247, 223, 230, .84), transparent 10rem),
+    linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(255, 248, 245, .92));
+}
+
+.breath-visual span {
+  position: absolute;
+  border: 1px solid rgba(184, 111, 132, .28);
+  border-radius: 999px;
+  opacity: .72;
+}
+
+.breath-visual span:nth-child(1) {
+  width: 92px;
+  height: 92px;
+  left: 28px;
+  top: 18px;
+}
+
+.breath-visual span:nth-child(2) {
+  width: 132px;
+  height: 132px;
+  right: 36px;
+  top: -34px;
+}
+
+.breath-visual span:nth-child(3) {
+  width: 64px;
+  height: 64px;
+  right: 72px;
+  bottom: 14px;
+  background: rgba(255, 255, 255, .34);
+}
+
+.question-card,
+.seo-article {
+  display: grid;
+  gap: 18px;
+}
+
+.question-answer {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.seo-article {
+  max-width: 820px;
+}
+
+.seo-article h2 {
+  margin-top: 30px;
+}
+
+.care-list {
+  display: grid;
+  gap: 12px;
+  padding-left: 1.2em;
+  color: var(--muted);
+}
