@@ -1,6 +1,7 @@
 const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const globalNav = document.querySelector('#global-nav');
+const noteLatest = document.querySelector('#note-latest');
 
 if (header && navToggle && globalNav) {
   navToggle.addEventListener('click', () => {
@@ -22,8 +23,6 @@ if (header && navToggle && globalNav) {
     }
   });
 }
-
-const noteLatest = document.querySelector('#note-latest');
 
 const socialItems = [
   {
@@ -54,18 +53,10 @@ function loadExtraStyles() {
 
 function normalizeNavigation() {
   document.querySelectorAll('.global-nav').forEach((nav) => {
-    const articleLink = Array.from(nav.querySelectorAll('a')).find((link) => {
-      const href = link.getAttribute('href') || '';
-      return href.endsWith('articles.html');
-    });
-    const questionsLink = Array.from(nav.querySelectorAll('a')).find((link) => {
-      const href = link.getAttribute('href') || '';
-      return href.endsWith('questions.html');
-    });
-    const guideLink = Array.from(nav.querySelectorAll('a')).find((link) => {
-      const href = link.getAttribute('href') || '';
-      return href.endsWith('guide.html');
-    });
+    const links = Array.from(nav.querySelectorAll('a'));
+    const articleLink = links.find((link) => (link.getAttribute('href') || '').endsWith('articles.html'));
+    const questionsLink = links.find((link) => (link.getAttribute('href') || '').endsWith('questions.html'));
+    const guideLink = links.find((link) => (link.getAttribute('href') || '').endsWith('guide.html'));
 
     if (articleLink && !questionsLink) {
       const link = document.createElement('a');
@@ -91,28 +82,17 @@ function normalizeNavigation() {
 
 function normalizeGuideCopy() {
   document.querySelectorAll('a, h2, h3').forEach((element) => {
-    if (element.textContent.trim() === '初めての方へ') {
-      element.textContent = '開発施術について';
-    }
-
-    if (element.textContent.trim() === '施術について') {
-      element.textContent = '開発施術について';
-    }
-
-    if (element.textContent.trim() === '無料・概要・流れはこちら') {
+    const text = element.textContent.trim();
+    if (text === '初めての方へ' || text === '施術について' || text === '無料・概要・流れはこちら') {
       element.textContent = '開発施術について';
     }
   });
 
   document.querySelectorAll('p').forEach((paragraph) => {
-    if (paragraph.textContent.trim() === '無料かどうか、概要、応募前に見るものを短く確認できます。') {
+    const text = paragraph.textContent.trim();
+    if (text === '無料かどうか、概要、応募前に見るものを短く確認できます。' || text === '施術の概要、無料かどうか、応募前の流れを確認できます。') {
       paragraph.textContent = '開発施術の考え方、無料かどうか、応募前の流れを確認できます。';
     }
-
-    if (paragraph.textContent.trim() === '施術の概要、無料かどうか、応募前の流れを確認できます。') {
-      paragraph.textContent = '開発施術の考え方、無料かどうか、応募前の流れを確認できます。';
-    }
-
   });
 }
 
@@ -136,9 +116,15 @@ function enhanceHomePage() {
     heroPanel.appendChild(visual);
   }
 
-  const liveHeading = Array.from(document.querySelectorAll('h2')).find((heading) => heading.textContent.trim() === '今の発信');
-  if (!liveHeading || document.querySelector('[data-enhanced-section="questions"]')) return;
-  const liveSection = liveHeading.closest('.section');
+  const headings = Array.from(document.querySelectorAll('h2'));
+  const liveHeading = headings.find((heading) => heading.textContent.trim() === '今の発信');
+  const questionsHeading = headings.find((heading) => {
+    const text = heading.textContent.trim();
+    return text === 'ミヤに届く悩みと身体の返事' || text === 'みんなの悩みと身体の返事';
+  });
+
+  if (!liveHeading || questionsHeading || document.querySelector('[data-enhanced-section="questions"]')) return;
+
   const section = document.createElement('section');
   section.className = 'section';
   section.dataset.enhancedSection = 'questions';
@@ -154,11 +140,11 @@ function enhanceHomePage() {
       <article class="card"><p class="card-kicker">刺激</p><h3>強くないとわからない気がする時</h3><p>刺激への慣れと、小さな反応を拾い直す順番について。</p><a class="card-link" href="questions.html#q-strong">読む</a></article>
     </div>
     <div class="container button-row"><a class="button secondary" href="questions.html">悩みQ&Aを読む</a></div>`;
-  liveSection.parentNode.insertBefore(section, liveSection);
+  liveHeading.closest('.section').insertAdjacentElement('beforebegin', section);
 }
 
 function enhanceThemePage() {
-  const pairs = [
+  [
     ['wet-far', 'nureru-kimochiyoku-nai.html', '詳しく読む'],
     ['self-sense', 'questions.html#q-self', '近い悩みを読む'],
     ['tension', 'kincho-katamaru.html', '詳しく読む'],
@@ -166,9 +152,7 @@ function enhanceThemePage() {
     ['inner-sense', 'articles.html', '関連記事へ'],
     ['safety', 'questions.html#q-safety', '近い悩みを読む'],
     ['breath', 'questions.html#q-breath', '近い悩みを読む']
-  ];
-
-  pairs.forEach(([id, href, label]) => {
+  ].forEach(([id, href, label]) => {
     const card = document.getElementById(id);
     if (!card || card.querySelector('.card-link')) return;
     const link = document.createElement('a');
@@ -177,27 +161,6 @@ function enhanceThemePage() {
     link.textContent = label;
     card.appendChild(link);
   });
-}
-
-function enhanceAboutPage() {
-  if (!window.location.pathname.endsWith('about.html') || document.querySelector('[data-enhanced-section="professional-lens"]')) return;
-  const firstSoftBand = document.querySelector('.soft-band');
-  if (!firstSoftBand) return;
-  const section = document.createElement('section');
-  section.className = 'section';
-  section.dataset.enhancedSection = 'professional-lens';
-  section.innerHTML = `
-    <div class="container narrow">
-      <p class="eyebrow">Body lens</p>
-      <h2>身体反応を見る視点</h2>
-      <div class="prose">
-        <p>身体の動きだけでなく、力の入り方、呼吸の浅さ、緊張が抜けるまでの時間、安心した時に表情や声が変わる瞬間を見てきました。</p>
-        <p>感じにくさも、単に感度の問題だけではなく、筋緊張、自律神経の高ぶり、呼吸の止まりやすさ、刺激への慣れ、安心できるかどうかが重なって起きることがあります。</p>
-        <p>このサイトでは、専門用語をそのまま押しつけるのではなく、身体の中で起きていることを日常の言葉に置き換えて整理しています。</p>
-        <p>ここでの個別対応は、医療行為・診断・治療・リハビリではありません。身体の反応を決めつけず、安心して小さな感覚を拾える状態を一緒に探すためのものです。</p>
-      </div>
-    </div>`;
-  firstSoftBand.insertAdjacentElement('afterend', section);
 }
 
 function enhanceArticlePage() {
@@ -245,10 +208,6 @@ function formatDate(value) {
   }).format(date);
 }
 
-function textOrFallback(value, fallback) {
-  return typeof value === 'string' && value.trim() ? value.trim() : fallback;
-}
-
 function renderNoteFallback() {
   if (!noteLatest) return;
   noteLatest.innerHTML = '<p class="note-empty">note最新記事を読み込めませんでした。時間をおいて再度確認してください。</p>';
@@ -257,23 +216,20 @@ function renderNoteFallback() {
 function renderNoteArticles(items) {
   if (!noteLatest) return;
   const articles = Array.isArray(items) ? items.slice(0, 3) : [];
-
   if (!articles.length) {
     renderNoteFallback();
     return;
   }
 
   noteLatest.innerHTML = articles.map((item) => {
-    const title = escapeHtml(textOrFallback(item.title, 'note記事'));
-    const description = escapeHtml(textOrFallback(item.description, '長文で整理した記事です。'));
+    const title = escapeHtml(item.title || 'note記事');
+    const description = escapeHtml(item.description || '長文で整理した記事です。');
     const link = escapeHtml(safeUrl(item.link, 'https://note.com/miyaaromassage'));
     const pubDate = escapeHtml(formatDate(item.pubDate));
     const image = safeUrl(item.image, '');
     const imageMarkup = image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : '';
-
     const tags = Array.isArray(item.tags) ? item.tags.slice(0, 3) : [];
     const tagsMarkup = tags.length ? `<p class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</p>` : '';
-
     return `<article class="note-card">${imageMarkup}<div class="note-card-body">${pubDate ? `<p class="note-date">${pubDate}</p>` : ''}${tagsMarkup}<h3>${title}</h3><p>${description}</p><a class="card-link" href="${link}" target="_blank" rel="noopener noreferrer">noteで読む</a></div></article>`;
   }).join('');
 }
@@ -285,7 +241,6 @@ normalizeGuideCopy();
 normalizeMiyaBranding();
 enhanceHomePage();
 enhanceThemePage();
-enhanceAboutPage();
 enhanceArticlePage();
 
 if (noteLatest) {
