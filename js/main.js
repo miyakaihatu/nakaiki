@@ -36,22 +36,7 @@ const socialItems = [
   { label: 'X', href: 'https://x.com/nakaiki_7', icon: '<span aria-hidden="true">X</span>' }
 ];
 
-function createSocialNav(locationClass) {
-  const nav = document.createElement('nav');
-  nav.className = `social-links ${locationClass}`;
-  nav.setAttribute('aria-label', 'SNSリンク');
-  return nav;
-}
-
 function renderSocialLinks() {
-  if (globalNav && !document.querySelector('.header-social')) {
-    globalNav.insertAdjacentElement('afterend', createSocialNav('header-social'));
-  }
-
-  document.querySelectorAll('.footer-links').forEach((footerLinks) => {
-    footerLinks.replaceWith(createSocialNav('footer-social'));
-  });
-
   document.querySelectorAll('.social-links').forEach((nav) => {
     nav.innerHTML = socialItems.map((item) => {
       return `<a class="social-icon" href="${item.href}" target="_blank" rel="noopener noreferrer nofollow" aria-label="${item.label}">${item.icon}</a>`;
@@ -60,11 +45,37 @@ function renderSocialLinks() {
 }
 
 function normalizeNavigation() {
+  document.querySelectorAll('.global-nav').forEach((nav) => {
+    const guideLink = Array.from(nav.querySelectorAll('a')).find((link) => {
+      const href = link.getAttribute('href') || '';
+      return href.endsWith('guide.html');
+    });
+
+    if (guideLink) {
+      guideLink.textContent = '施術について';
+      nav.appendChild(guideLink);
+    }
+  });
+
   document.querySelectorAll('.global-nav a').forEach((link) => {
     const href = link.getAttribute('href') || '';
-    if (href.endsWith('guide.html')) link.textContent = '初めての方へ';
     if (href.endsWith('about.html')) link.textContent = 'プロフィール';
+    if (href.endsWith('guide.html')) link.textContent = '施術について';
     if (href.endsWith('emergency.html')) link.remove();
+  });
+}
+
+function normalizeGuideCopy() {
+  document.querySelectorAll('a, h2, h3').forEach((element) => {
+    if (element.textContent.trim() === '初めての方へ') {
+      element.textContent = '施術について';
+    }
+  });
+
+  document.querySelectorAll('p').forEach((paragraph) => {
+    if (paragraph.textContent.trim() === '無料かどうか、概要、応募前に見るものを短く確認できます。') {
+      paragraph.textContent = '施術の概要、無料かどうか、応募前の流れを確認できます。';
+    }
   });
 }
 
@@ -135,6 +146,7 @@ function renderNoteArticles(items) {
 
 renderSocialLinks();
 normalizeNavigation();
+normalizeGuideCopy();
 
 if (noteLatest) {
   fetch('data/note.json', { cache: 'no-store' })
