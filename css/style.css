@@ -340,7 +340,7 @@ h3 {
 }
 
 .card-grid.three,
-.diagnosis-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+diagnosis-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .card-grid.four,
 .diagnosis-grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .card-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -510,6 +510,92 @@ h3 {
   color: var(--muted);
 }
 
+.social-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.profile-social-card,
+.timeline-card {
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.profile-social-card {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 180px 1fr;
+}
+
+.profile-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(135deg, rgba(247, 223, 230, .95), rgba(255, 248, 245, .72)),
+    radial-gradient(circle at 70% 20%, rgba(214, 143, 163, .30), transparent 12rem);
+}
+
+.threads-card .profile-visual {
+  background:
+    linear-gradient(135deg, rgba(255, 253, 251, .98), rgba(247, 223, 230, .72)),
+    radial-gradient(circle at 28% 30%, rgba(184, 111, 132, .22), transparent 10rem);
+}
+
+.profile-mark {
+  width: 86px;
+  height: 86px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .68);
+  color: var(--accent-deep);
+  font-size: 25px;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.profile-social-body,
+.timeline-card {
+  padding: 24px;
+}
+
+.profile-social-body .button {
+  margin-top: 10px;
+}
+
+.timeline-card {
+  grid-column: 1 / -1;
+}
+
+.timeline-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+}
+
+.timeline-card-head h3 {
+  margin-bottom: 0;
+}
+
+.timeline-embed {
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+}
+
 .site-footer {
   border-top: 1px solid var(--line);
   background: rgba(255, 253, 251, .9);
@@ -611,6 +697,7 @@ h3 {
   .hero { padding: 52px 0; }
   .hero-grid,
   .split,
+  .social-showcase,
   .card-grid.four,
   .card-grid.three,
   .card-grid.two,
@@ -646,6 +733,9 @@ h3 {
   .diagnosis-card,
   .profile-box { padding: 22px; }
   .stage-card { padding-left: 58px; }
+  .profile-social-card {
+    grid-template-rows: 150px 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
