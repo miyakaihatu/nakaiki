@@ -36,7 +36,22 @@ const socialItems = [
   { label: 'X', href: 'https://x.com/nakaiki_7', icon: '<span aria-hidden="true">X</span>' }
 ];
 
+function createSocialNav(locationClass) {
+  const nav = document.createElement('nav');
+  nav.className = `social-links ${locationClass}`;
+  nav.setAttribute('aria-label', 'SNSリンク');
+  return nav;
+}
+
 function renderSocialLinks() {
+  if (globalNav && !document.querySelector('.header-social')) {
+    globalNav.insertAdjacentElement('afterend', createSocialNav('header-social'));
+  }
+
+  document.querySelectorAll('.footer-links').forEach((footerLinks) => {
+    footerLinks.replaceWith(createSocialNav('footer-social'));
+  });
+
   document.querySelectorAll('.social-links').forEach((nav) => {
     nav.innerHTML = socialItems.map((item) => {
       return `<a class="social-icon" href="${item.href}" target="_blank" rel="noopener noreferrer nofollow" aria-label="${item.label}">${item.icon}</a>`;
@@ -47,6 +62,7 @@ function renderSocialLinks() {
 function normalizeNavigation() {
   document.querySelectorAll('.global-nav a').forEach((link) => {
     const href = link.getAttribute('href') || '';
+    if (href.endsWith('guide.html')) link.textContent = '初めての方へ';
     if (href.endsWith('about.html')) link.textContent = 'プロフィール';
     if (href.endsWith('emergency.html')) link.remove();
   });
