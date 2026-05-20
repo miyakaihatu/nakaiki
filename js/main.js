@@ -112,6 +112,17 @@ function normalizeGuideCopy() {
     if (paragraph.textContent.trim() === '施術の概要、無料かどうか、応募前の流れを確認できます。') {
       paragraph.textContent = '開発施術の考え方、無料かどうか、応募前の流れを確認できます。';
     }
+
+  });
+}
+
+function normalizeMiyaBranding() {
+  document.querySelectorAll('.brand-subtitle').forEach((element) => {
+    element.textContent = 'ミヤの身体感覚メモ';
+  });
+
+  document.querySelectorAll('.footer-title').forEach((element) => {
+    element.textContent = '身体の返事 by ミヤ';
   });
 }
 
@@ -134,8 +145,8 @@ function enhanceHomePage() {
   section.innerHTML = `
     <div class="container section-heading">
       <p class="eyebrow">Shared questions</p>
-      <h2>みんなの悩みと身体の返事</h2>
-      <p>質問箱に届きやすい悩みを、個人が特定されない形で読み物として残しています。「私だけじゃない」と思える入口です。</p>
+      <h2>ミヤに届く悩みと身体の返事</h2>
+      <p>ミヤの質問箱に届きやすい悩みを、個人が特定されない形で読み物として残しています。「私だけじゃない」と思える入口です。</p>
     </div>
     <div class="container card-grid three">
       <article class="card"><p class="card-kicker">感じにくさ</p><h3>濡れるのに、気持ちよさが遠い時</h3><p>身体は反応しているのに実感が追いつかない時の、安心・呼吸・緊張からの見方。</p><a class="card-link" href="questions.html#q-wet">読む</a></article>
@@ -271,6 +282,7 @@ renderSocialLinks();
 loadExtraStyles();
 normalizeNavigation();
 normalizeGuideCopy();
+normalizeMiyaBranding();
 enhanceHomePage();
 enhanceThemePage();
 enhanceAboutPage();
