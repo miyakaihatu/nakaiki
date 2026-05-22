@@ -56,6 +56,7 @@ function normalizeNavigation() {
     const links = Array.from(nav.querySelectorAll('a'));
     const articleLink = links.find((link) => (link.getAttribute('href') || '').endsWith('articles.html'));
     const questionsLink = links.find((link) => (link.getAttribute('href') || '').endsWith('questions.html'));
+    const voicesLink = links.find((link) => (link.getAttribute('href') || '').endsWith('voices.html'));
     const guideLink = links.find((link) => (link.getAttribute('href') || '').endsWith('guide.html'));
 
     if (articleLink && !questionsLink) {
@@ -63,6 +64,16 @@ function normalizeNavigation() {
       link.href = 'questions.html';
       link.textContent = '悩みQ&A';
       articleLink.insertAdjacentElement('afterend', link);
+    }
+
+    const currentQuestionsLink = Array.from(nav.querySelectorAll('a')).find((link) => {
+      return (link.getAttribute('href') || '').endsWith('questions.html');
+    });
+    if (currentQuestionsLink && !voicesLink) {
+      const link = document.createElement('a');
+      link.href = 'voices.html';
+      link.textContent = '感想';
+      currentQuestionsLink.insertAdjacentElement('afterend', link);
     }
 
     if (guideLink) {
@@ -76,6 +87,7 @@ function normalizeNavigation() {
     if (href.endsWith('about.html')) link.textContent = 'プロフィール';
     if (href.endsWith('guide.html')) link.textContent = '開発施術について';
     if (href.endsWith('questions.html')) link.textContent = '悩みQ&A';
+    if (href.endsWith('voices.html')) link.textContent = '感想';
     if (href.endsWith('emergency.html')) link.remove();
   });
 }
@@ -118,12 +130,13 @@ function enhanceHomePage() {
 
   const headings = Array.from(document.querySelectorAll('h2'));
   const liveHeading = headings.find((heading) => heading.textContent.trim() === '今の発信');
+  const voicesHeading = headings.find((heading) => heading.textContent.trim() === 'ミヤに届いた感想');
   const questionsHeading = headings.find((heading) => {
     const text = heading.textContent.trim();
     return text === 'ミヤに届く悩みと身体の返事' || text === 'みんなの悩みと身体の返事';
   });
 
-  if (!liveHeading || questionsHeading || document.querySelector('[data-enhanced-section="questions"]')) return;
+  if (!liveHeading || questionsHeading || voicesHeading || document.querySelector('[data-enhanced-section="questions"]')) return;
 
   const section = document.createElement('section');
   section.className = 'section';
