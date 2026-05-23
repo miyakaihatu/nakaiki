@@ -247,6 +247,18 @@ function renderNoteArticles(items) {
   }).join('');
 }
 
+function renderMobileFixedCta() {
+  if (document.querySelector('.mobile-fixed-cta')) return;
+  const cta = document.createElement('nav');
+  cta.className = 'mobile-fixed-cta';
+  cta.setAttribute('aria-label', '応募前の固定導線');
+  cta.innerHTML = [
+    '<a href="guide.html#flow">流れを見る</a>',
+    '<a href="https://marshmallow-qa.com/miya_massage" target="_blank" rel="noopener noreferrer nofollow">匿名で質問</a>'
+  ].join('');
+  document.body.appendChild(cta);
+}
+
 renderSocialLinks();
 loadExtraStyles();
 normalizeNavigation();
@@ -255,6 +267,7 @@ normalizeMiyaBranding();
 enhanceHomePage();
 enhanceThemePage();
 enhanceArticlePage();
+renderMobileFixedCta();
 
 if (noteLatest) {
   fetch('data/note.json', { cache: 'no-store' })
