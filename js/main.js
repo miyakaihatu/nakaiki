@@ -55,9 +55,23 @@ function normalizeNavigation() {
   document.querySelectorAll('.global-nav').forEach((nav) => {
     const links = Array.from(nav.querySelectorAll('a'));
     const articleLink = links.find((link) => (link.getAttribute('href') || '').endsWith('articles.html'));
+    const aboutLink = links.find((link) => (link.getAttribute('href') || '').endsWith('about.html'));
+    const sensitivityLink = links.find((link) => {
+      const href = link.getAttribute('href') || '';
+      return href.includes('flowchart-app');
+    });
     const questionsLink = links.find((link) => (link.getAttribute('href') || '').endsWith('questions.html'));
     const voicesLink = links.find((link) => (link.getAttribute('href') || '').endsWith('voices.html'));
     const guideLink = links.find((link) => (link.getAttribute('href') || '').endsWith('guide.html'));
+
+    if (aboutLink && !sensitivityLink) {
+      const link = document.createElement('a');
+      link.href = 'https://miyakaihatu.github.io/flowchart-app/';
+      link.textContent = '感度チェック';
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer nofollow';
+      aboutLink.insertAdjacentElement('afterend', link);
+    }
 
     if (articleLink && !questionsLink) {
       const link = document.createElement('a');
@@ -88,6 +102,7 @@ function normalizeNavigation() {
     if (href.endsWith('guide.html')) link.textContent = '開発施術について';
     if (href.endsWith('questions.html')) link.textContent = '悩みQ&A';
     if (href.endsWith('voices.html')) link.textContent = '感想';
+    if (href.includes('flowchart-app')) link.textContent = '感度チェック';
     if (href.endsWith('emergency.html')) link.remove();
   });
 }
