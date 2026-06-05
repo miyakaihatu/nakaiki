@@ -32,7 +32,7 @@ const socialItems = [
   },
   { label: 'Threads', href: 'https://www.threads.com/@nakaikikaihatu', icon: '<span aria-hidden="true">@</span>' },
   { label: 'note', href: 'https://note.com/miyaaromassage', icon: '<span aria-hidden="true">n</span>' },
-  { label: 'X', href: 'https://x.com/nakaiki_7', icon: '<span aria-hidden="true">X</span>' }
+  { label: 'X', href: 'https://x.com/miyaaromassage', icon: '<span aria-hidden="true">X</span>' }
 ];
 
 function renderSocialLinks() {
