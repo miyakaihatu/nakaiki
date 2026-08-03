@@ -396,6 +396,14 @@
 }
 
 @media (max-width: 520px) {
+  .header-social {
+    display: none;
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
   .flow-list article {
     grid-template-columns: 34px 1fr;
     padding: 16px;
