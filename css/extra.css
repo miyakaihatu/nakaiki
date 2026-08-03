@@ -314,6 +314,63 @@
   content: "/";
 }
 
+.miya-card-intro,
+.profile-page-intro {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.miya-avatar-link {
+  display: block;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  outline-offset: 4px;
+}
+
+.miya-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 4px solid rgba(255, 255, 255, .9);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  box-shadow: 0 8px 24px rgba(91, 64, 70, .12);
+  object-fit: cover;
+}
+
+.miya-avatar-link:hover .miya-avatar {
+  border-color: var(--accent-soft);
+}
+
+.miya-card-intro .panel-label,
+.miya-card-intro h2,
+.profile-page-intro .eyebrow,
+.profile-page-intro h1 {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.profile-page-intro {
+  grid-template-columns: 116px minmax(0, 1fr);
+  margin-bottom: 28px;
+}
+
+.profile-page-intro .miya-avatar-link {
+  width: 116px;
+  height: 116px;
+}
+
+.profile-x-link {
+  color: var(--accent-deep);
+  font-size: 14px;
+  font-weight: 800;
+  text-underline-offset: 4px;
+}
+
 .service-line {
   color: var(--accent-deep);
   font-weight: 800;
@@ -440,5 +497,29 @@
 
   .fact-grid > div {
     min-height: 0;
+  }
+
+  .miya-card-intro {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .miya-card-intro .miya-avatar-link {
+    width: 72px;
+    height: 72px;
+  }
+
+  .profile-page-intro {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .profile-page-intro .miya-avatar-link {
+    width: 92px;
+    height: 92px;
+  }
+
+  .profile-page-intro h1 {
+    font-size: 30px;
   }
 }
