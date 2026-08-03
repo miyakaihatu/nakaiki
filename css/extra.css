@@ -344,6 +344,13 @@
   margin-inline: auto;
 }
 
+.instagram-embed .instagram-media a {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .service-page-title span {
   display: block;
 }
