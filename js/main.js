@@ -129,7 +129,7 @@ function normalizeGuideCopy() {
 
 function normalizeMiyaBranding() {
   document.querySelectorAll('.brand-subtitle').forEach((element) => {
-    element.textContent = '中イキ開発 × アロマオイル';
+    element.textContent = 'ミヤ｜中イキ開発・アロマオイル';
   });
 
   document.querySelectorAll('.footer-title').forEach((element) => {
