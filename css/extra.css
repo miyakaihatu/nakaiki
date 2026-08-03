@@ -293,6 +293,32 @@
   font-weight: 800;
 }
 
+.miya-byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.miya-byline strong {
+  color: var(--accent-deep);
+  font-size: 18px;
+}
+
+.miya-byline span::before {
+  margin-right: 10px;
+  color: var(--line-strong, #d8b9b1);
+  content: "/";
+}
+
+.service-line {
+  color: var(--accent-deep);
+  font-weight: 800;
+}
+
 .oil-feature {
   border-block: 1px solid rgba(240, 221, 215, .72);
   background: rgba(255, 255, 255, .44);
@@ -303,6 +329,16 @@
 }
 
 .oil-feature .instagram-embed {
+  width: 100%;
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+.session-atmosphere .split {
+  align-items: start;
+}
+
+.session-atmosphere .instagram-embed {
   width: 100%;
   max-width: 540px;
   margin-inline: auto;
