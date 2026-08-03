@@ -308,6 +308,10 @@
   margin-inline: auto;
 }
 
+.service-page-title span {
+  display: block;
+}
+
 @media (max-width: 820px) {
   body { padding-bottom: 86px; }
 
@@ -368,6 +372,10 @@
 
   .application-cta .narrow {
     padding: 22px;
+  }
+
+  .service-page-title {
+    font-size: 30px;
   }
 
   .tool-cta .button,
