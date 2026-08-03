@@ -371,6 +371,13 @@
   text-underline-offset: 4px;
 }
 
+.profile-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: center;
+}
+
 .service-line {
   color: var(--accent-deep);
   font-weight: 800;
