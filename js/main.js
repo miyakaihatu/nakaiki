@@ -86,7 +86,7 @@ function normalizeNavigation() {
     if (currentQuestionsLink && !voicesLink) {
       const link = document.createElement('a');
       link.href = 'voices.html';
-      link.textContent = '感想';
+      link.textContent = '施術の感想';
       currentQuestionsLink.insertAdjacentElement('afterend', link);
     }
 
@@ -105,7 +105,7 @@ function normalizeNavigation() {
       link.classList.add('nav-apply');
     }
     if (href.endsWith('questions.html')) link.textContent = '悩みQ&A';
-    if (href.endsWith('voices.html')) link.textContent = '感想';
+    if (href.endsWith('voices.html')) link.textContent = '施術の感想';
     if (href.includes('flowchart-app')) link.textContent = '感度チェック';
     if (href.endsWith('emergency.html')) link.remove();
   });
@@ -149,7 +149,10 @@ function enhanceHomePage() {
 
   const headings = Array.from(document.querySelectorAll('h2'));
   const liveHeading = headings.find((heading) => heading.textContent.trim() === '今の発信');
-  const voicesHeading = headings.find((heading) => heading.textContent.trim() === 'ミヤに届いた感想');
+  const voicesHeading = headings.find((heading) => {
+    const text = heading.textContent.trim();
+    return text === 'ミヤに届いた感想' || text === '開発施術を受けた感想';
+  });
   const questionsHeading = headings.find((heading) => {
     const text = heading.textContent.trim();
     return text === 'ミヤに届く悩みと身体の返事' || text === 'みんなの悩みと身体の返事';
