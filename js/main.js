@@ -47,7 +47,7 @@ function loadExtraStyles() {
   if (document.querySelector('link[href^="css/extra.css"]')) return;
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = 'css/extra.css?v=20260803d';
+  link.href = 'css/extra.css?v=20260803e';
   document.head.appendChild(link);
 }
 
