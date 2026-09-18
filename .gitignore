@@ -1,0 +1,37 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+credentials.json
+token.json
+
+# Local work files: this repository root is published by GitHub Pages.
+/.sheet_work/
+/tmp/
+/output/
+/outputs/
+
+# Unrelated tools and study materials.
+/drawing.html
+/fukusenzu-practice.html
+/k4-drafting/
+/flowchart-app/
+/make_circuit_practice_set.m
+/make_cross_section_practice.m
+/make_rl_ac_circuit.m
+/make_rl_ac_circuit_pdf.py
+
+# Local media and content-management work files.
+/X.png
+/grok-video-*.mp4
+/archive_note_articles.py
+/note_archive/
+/articles.csv
+/articles.example.csv
+/requirements-note-archive.txt
+/ordered-30-posts.md
+/post_memory.md
+/post_output_log.md
+/revised-post-candidates.md
+/sns-operation/
