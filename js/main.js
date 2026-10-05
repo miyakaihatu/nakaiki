@@ -171,7 +171,7 @@ function enhanceHomePage() {
     </div>
     <div class="container card-grid three">
       <article class="card"><p class="card-kicker">感じにくさ</p><h3>濡れるのに、気持ちよさが遠い時</h3><p>身体は反応しているのに実感が追いつかない時の、安心・呼吸・緊張からの見方。</p><a class="card-link" href="questions.html#q-wet">読む</a></article>
-      <article class="card"><p class="card-kicker">緊張</p><h3>触れられると固まってしまう時</h3><p>守る反応が先に出ている身体を、責めずにほどくための考え方。</p><a class="card-link" href="questions.html#q-tension">読む</a></article>
+      <article class="card"><p class="card-kicker">緊張</p><h3>触れられると固まってしまう時</h3><p>守る反応が先に出ている身体を、ほどくための考え方。</p><a class="card-link" href="questions.html#q-tension">読む</a></article>
       <article class="card"><p class="card-kicker">刺激</p><h3>強くないとわからない気がする時</h3><p>刺激への慣れと、小さな反応を拾い直す順番について。</p><a class="card-link" href="questions.html#q-strong">読む</a></article>
     </div>
     <div class="container button-row"><a class="button secondary" href="questions.html">悩みQ&Aを読む</a></div>`;
