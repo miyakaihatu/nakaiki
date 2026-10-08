@@ -32,6 +32,11 @@ const socialItems = [
   },
   { label: 'Threads', href: 'https://www.threads.com/@nakaikikaihatu', icon: '<span aria-hidden="true">@</span>' },
   { label: 'note', href: 'https://note.com/miyaaromassage', icon: '<span aria-hidden="true">n</span>' },
+  {
+    label: 'YouTube',
+    href: 'https://www.youtube.com/watch?v=5bxf1jdMPuc',
+    icon: '<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><rect x="3" y="6" width="18" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>'
+  },
   { label: 'X', href: 'https://x.com/miya_kankaku', icon: '<span aria-hidden="true">X</span>' }
 ];
 
