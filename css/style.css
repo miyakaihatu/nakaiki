@@ -861,3 +861,6 @@ diagnosis-grid {
     transition: none !important;
   }
 }
+
+/* hero: form note (2026-11-02) */
+.hero-note{margin-top:.75rem;font-size:.85rem;opacity:.75;line-height:1.6}
