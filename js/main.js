@@ -126,8 +126,8 @@ function normalizeGuideCopy() {
 
   document.querySelectorAll('p').forEach((paragraph) => {
     const text = paragraph.textContent.trim();
-    if (text === '無料かどうか、概要、応募前に見るものを短く確認できます。' || text === '施術の概要、無料かどうか、応募前の流れを確認できます。') {
-      paragraph.textContent = '開発施術の考え方、無料かどうか、応募前の流れを確認できます。';
+    if (text === '無料かどうか、概要、応募前に見るものを短く確認できます。' || text === '施術の概要、無料かどうか、送る前の流れを確認できます。') {
+      paragraph.textContent = '開発施術の考え方、無料かどうか、送る前の流れを確認できます。';
     }
   });
 }
@@ -278,12 +278,79 @@ function renderMobileFixedCta() {
   if (document.querySelector('.mobile-fixed-cta')) return;
   const cta = document.createElement('nav');
   cta.className = 'mobile-fixed-cta';
-  cta.setAttribute('aria-label', '応募前の固定導線');
+  cta.setAttribute('aria-label', '相談と質問の入口');
   cta.innerHTML = [
-    '<a href="guide.html#flow">流れを見る</a>',
+    '<a href="https://docs.google.com/forms/d/1Z66g-mwSutls18mOXEv9DRIS83cDv1mK9pyOA1X2QUs/viewform?pli=1" target="_blank" rel="noopener noreferrer nofollow">相談フォーム</a>',
     '<a href="https://marshmallow-qa.com/miya_massage" target="_blank" rel="noopener noreferrer nofollow">匿名で質問</a>'
   ].join('');
   document.body.appendChild(cta);
+}
+
+function renderApplyBlock() {
+  const page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  if (['index', 'guide', 'links', 'emergency'].includes(page)) return;
+  const main = document.querySelector('main');
+  if (!main || document.querySelector('.apply-block')) return;
+  const section = document.createElement('section');
+  section.className = 'section apply-block';
+  section.dataset.cta = 'page_end';
+  section.innerHTML = `
+    <div class="container">
+      <aside class="tool-cta" aria-label="ミヤの施術への案内">
+        <p class="eyebrow">ミヤの施術について</p>
+        <h2>ひとりで難しい時は、一緒に探せます。</h2>
+        <p>東京で、中イキ開発とアロマオイルマッサージをしています。すべて無料です。18歳未満の方は利用できません。フォームは相談の入口で、送っただけでは確定しません。</p>
+        <div class="button-row">
+          <a class="button primary" href="https://docs.google.com/forms/d/1Z66g-mwSutls18mOXEv9DRIS83cDv1mK9pyOA1X2QUs/viewform?pli=1" target="_blank" rel="noopener noreferrer nofollow">相談フォームを開く</a>
+          <a class="button secondary" href="guide.html">施術について見る</a>
+          <a class="button secondary" href="voices.html">受けた人の感想</a>
+        </div>
+      </aside>
+    </div>`;
+  if (page === 'voices') section.querySelector('a[href="voices.html"]').remove();
+  main.appendChild(section);
+}
+
+function trackClicks() {
+  const rules = [
+    [/docs\.google\.com\/forms/, 'click_form'],
+    [/marshmallow-qa\.com/, 'click_question_box'],
+    [/note\.com\/qa\//, 'click_note_question_box'],
+    [/flowchart-app/, 'click_check'],
+    [/instagram\.com/, 'click_instagram'],
+    [/threads\.(com|net)/, 'click_threads'],
+    [/note\.com/, 'click_note'],
+    [/youtube\.com|youtu\.be/, 'click_youtube'],
+    [/lit\.link/, 'click_litlink'],
+    [/\/\/(www\.)?(x|twitter)\.com/, 'click_x'],
+    [/guide\.html/, 'click_guide'],
+    [/voices\.html/, 'click_voices']
+  ];
+  const page = (location.pathname.split('/').pop() || 'index.html').replace('.html', '') || 'index';
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!link || typeof window.gtag !== 'function') return;
+    const rule = rules.find(([pattern]) => pattern.test(link.href));
+    if (!rule) return;
+    let position = 'body';
+    const marked = link.closest('[data-cta]');
+    if (marked) position = marked.dataset.cta;
+    else if (link.closest('.mobile-fixed-cta')) position = 'fixed_bottom';
+    else if (link.closest('.site-header')) position = 'header';
+    else if (link.closest('.site-footer')) position = 'footer';
+    else if (link.closest('.hero')) position = 'hero';
+    else {
+      const section = link.closest('section');
+      const heading = section ? section.querySelector('h1, h2') : null;
+      if (heading) position = heading.textContent.trim().slice(0, 30);
+    }
+    window.gtag('event', rule[1], {
+      page_name: page,
+      link_position: position,
+      link_text: link.textContent.trim().slice(0, 40),
+      transport_type: 'beacon'
+    });
+  }, true);
 }
 
 renderSocialLinks();
@@ -294,7 +361,9 @@ normalizeMiyaBranding();
 enhanceHomePage();
 enhanceThemePage();
 enhanceArticlePage();
+renderApplyBlock();
 renderMobileFixedCta();
+trackClicks();
 
 if (noteLatest) {
   fetch('data/note.json', { cache: 'no-store' })
